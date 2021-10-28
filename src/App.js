@@ -10,8 +10,8 @@ const App = () => {
     <Nav />
     <div className = 'Routes' > 
       <Route exact path='/' component = { Products } />
-      <Route exact path='/product:id' component = { Product } />
-      <Route exact path='/product:id/add-review' component = { AddReview } />
+      <Route path='/product/:id' component = { Product } />
+      <Route path='/add-review/:product_id' component = { AddReview } />
     </div>
   </div> )
 }

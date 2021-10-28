@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import axios from "axios";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
-const ProductsWrapper = styled.div`{
+export const ProductsPageCtn = styled.div`{
     width: 100%;
     height: 95vh;
     border: solid orange 1px;
     display: flex;
     flex-direction: column;
-    padding: 25px;
+    background-color: whitesmoke;
     
     h1 {
         margin: 0 auto;
     }
-}`
+}`;
 
-const ProductWrapper = styled.div`{
+export const ProductWrapper = styled.div`{
     width: 500px;
     height: 300px;
     padding: 25px;
@@ -23,7 +24,7 @@ const ProductWrapper = styled.div`{
     display: flex;
     justify-content: center;
     border: solid gray 1px;
-}`
+}`;
 
 const Products = () => {
     const [ products, setProducts ] = useState( null );
@@ -33,22 +34,29 @@ const Products = () => {
         .catch( err => alert( err ) );
     }
 
-    useEffect( () => { setTimeout( getProducts, 500 ) }, [] );
+    useEffect( () => { setTimeout( getProducts, 100 ) }, [] );
 
     return (
-        <ProductsWrapper>
+        <ProductsPageCtn>
             <h1>Products</h1>
             { products && products.map( product => {
                     return (
-                        <ProductWrapper
-                            key = { product.id }
-                        >
-                            { product.title }
-                        </ProductWrapper>
+                        <Link to={{
+                            pathname: `/product/${ product.id }`,
+                            state: {
+                                productClicked: product
+                            }
+                        }}>
+                            <ProductWrapper
+                                key = { product.id }
+                            >
+                                { product.title }
+                            </ProductWrapper>
+                        </Link>
                     )
                 })
             }
-        </ProductsWrapper>
+        </ProductsPageCtn>
     );
 }
 
