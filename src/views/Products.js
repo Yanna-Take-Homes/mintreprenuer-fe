@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { Link } from "react-router-dom";
+import io from "socket.io-client";
 import styled from "styled-components";
 
 export const ProductsPageCtn = styled.div`{
@@ -35,6 +36,13 @@ const Products = () => {
     }
 
     useEffect( () => { setTimeout( getProducts, 100 ) }, [] );
+
+    useEffect(() => {
+        const socket = io('http://localhost:4000')
+        socket.on('welcome', (res) => {
+            console.log(res);
+        })
+    }, []);
 
     return (
         <ProductsPageCtn>
